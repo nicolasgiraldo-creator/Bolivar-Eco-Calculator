@@ -128,4 +128,341 @@
     </script>
 
 </body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolívar Eco Calculator</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f7f2;
+            color: #183b2b;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #064e3b, #059669);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        header p {
+            color: #d1fae5;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: #065f46;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .calculator {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(6, 78, 59, 0.08);
+        }
+
+        .field {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #065f46;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d1e7d9;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            background: #f8fcf9;
+            color: #183b2b;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        select:focus, input:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(5, 150, 105, 0.25);
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .results h2 {
+            color: #065f46;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .result-card {
+            background: #ecfdf5;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #d1fae5;
+        }
+
+        .result-card h3 {
+            color: #047857;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .result-card p {
+            font-size: 30px;
+            font-weight: 800;
+            color: #064e3b;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f0fdf4;
+            color: #166534;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 25px;
+            }
+
+            .calculator {
+                padding: 20px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 Bolívar Eco Calculator</h1>
+    <p>Pequeñas acciones, grandes cambios para nuestro planeta.</p>
+</header>
+
+<main class="container">
+
+    <section class="intro">
+        <h2>Calcula tu impacto ambiental</h2>
+        <p>Descubre cómo tus hábitos diarios influyen en el medio ambiente y conoce tus EcoPoints.</p>
+    </section>
+
+    <section class="calculator">
+
+        <form id="ecoForm">
+
+            <div class="field">
+                <label for="transport">🚗 ¿Cómo llegas al colegio?</label>
+                <select id="transport" required>
+                    <option value="">Selecciona tu transporte</option>
+                    <option value="bus">Bus</option>
+                    <option value="private">Carro privado</option>
+                    <option value="shared">Carro compartido</option>
+                    <option value="bike">Bicicleta</option>
+                    <option value="walk">Caminando</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="distance">📍 Distancia de tu casa al colegio (km)</label>
+                <input type="number" id="distance" min="0" step="0.1" placeholder="Ejemplo: 5" required>
+            </div>
+
+            <div class="field">
+                <label for="paper">📄 ¿Cuántas hojas de papel utilizas diariamente?</label>
+                <input type="number" id="paper" min="0" placeholder="Ejemplo: 10" required>
+            </div>
+
+            <div class="field">
+                <label for="recycling">♻️ ¿Cuál es tu nivel de reciclaje?</label>
+                <select id="recycling" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="0">No reciclo</option>
+                    <option value="1">Reciclo algunas veces</option>
+                    <option value="2">Reciclo frecuentemente</option>
+                    <option value="3">Siempre reciclo</option>
+                </select>
+            </div>
+
+            <button type="submit">Calcular mi impacto ambiental 🌎</button>
+
+        </form>
+
+        <section class="results" id="results">
+            <h2>🌿 Tus resultados ambientales</h2>
+
+            <div class="result-grid">
+
+                <div class="result-card">
+                    <h3>Emisiones semanales de CO₂</h3>
+                    <p id="co2Result">0 kg</p>
+                </div>
+
+                <div class="result-card">
+                    <h3>EcoPoints obtenidos</h3>
+                    <p id="pointsResult">0</p>
+                </div>
+
+            </div>
+
+            <div class="message" id="message"></div>
+        </section>
+
+    </section>
+
+</main>
+
+<footer>
+    Bolívar Eco Calculator | Colegio Bolívar 🌱
+    <br>Construyendo un futuro más sostenible.
+</footer>
+
+<script>
+    const form = document.getElementById("ecoForm");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const transport = document.getElementById("transport").value;
+        const distance = Number(document.getElementById("distance").value);
+        const paper = Number(document.getElementById("paper").value);
+        const recycling = Number(document.getElementById("recycling").value);
+
+        const emissionRates = {
+            bus: 0.089,
+            private: 0.21,
+            shared: 0.105,
+            bike: 0,
+            walk: 0
+        };
+
+        const transportCO2 = distance * 2 * 5 * emissionRates[transport];
+
+        const paperCO2 = paper * 5 * 0.005;
+
+        const weeklyCO2 = transportCO2 + paperCO2;
+
+        const transportPoints = {
+            bus: 10,
+            private: 2,
+            shared: 7,
+            bike: 20,
+            walk: 20
+        };
+
+        const recyclingPoints = recycling * 10;
+        const paperPoints = Math.max(0, 10 - paper);
+
+        const totalPoints = transportPoints[transport] +
+                            recyclingPoints +
+                            paperPoints;
+
+        document.getElementById("co2Result").textContent =
+            weeklyCO2.toFixed(2) + " kg";
+
+        document.getElementById("pointsResult").textContent =
+            totalPoints;
+
+        let message = "";
+
+        if (totalPoints >= 40) {
+            message = "¡Excelente trabajo! 🌱 Tus hábitos ayudan a cuidar el planeta.";
+        } else if (totalPoints >= 25) {
+            message = "¡Vas por buen camino! ♻️ Puedes seguir mejorando tus hábitos.";
+        } else {
+            message = "¡Cada cambio cuenta! 🌎 Intenta utilizar transportes sostenibles y reciclar más.";
+        }
+
+        document.getElementById("message").textContent = message;
+        document.getElementById("results").style.display = "block";
+
+        document.getElementById("results").scrollIntoView({
+            behavior: "smooth"
+        });
+    });
+</script>
+
+</body>
 </html>
